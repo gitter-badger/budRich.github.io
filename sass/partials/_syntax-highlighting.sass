@@ -1,0 +1,308 @@
+// pygments highlighting  
+
+code
+  color: darken($hl-fg, 0%)
+  background-color: darken($hl-bg, 0%)
+  padding: 0.1rem .5rem
+  font-family: monospace
+  font-size: 0.8em
+  font-style: normal
+  font-weight: 300
+  overflow: hidden
+  whitespace: pre
+
+.highlight
+  border: 1px solid darken($hl-bg, 7%)
+  padding: 0 0
+  font-family: monospace
+  font-size: 80%
+  line-height: 1.1
+  background-color: $hl-bg
+  color: $hl-fg
+
+  code
+    padding: 0
+
+  pre
+    margin: 0.5rem
+    padding-top: 0.1rem
+    padding-bottom: 0.1rem
+    overflow-y: hidden
+
+  span
+    font-weight: 300
+
+  .c
+    color: $hl-comment
+
+  /* Comment
+  .err
+    color: $hl-fg
+
+  /* Error
+  .g
+    color: $hl-fg
+
+  /* Generic
+  .k
+    color: $hl-operators
+
+  /* Keyword
+  .l
+    color: $hl-fg
+
+  /* Literal
+  .n
+    color: $hl-fg
+
+  /* Name
+  .o
+    color: $hl-operators
+
+  /* Operator
+  .x
+    color: $hl-constants
+
+  /* Other
+  .p
+    color: $hl-fg
+
+  /* Punctuation
+  .cm
+    color: $hl-comment
+
+  /* Comment.Multiline
+  .cp
+    color: $hl-operators
+
+  /* Comment.Preproc
+  .c1
+    color: $hl-comment
+
+  /* Comment.Single
+  .cs
+    color: $hl-operators
+
+  /* Comment.Special
+  .gd
+    color: $hl-strings
+
+  /* Generic.Deleted
+  .ge
+    color: $hl-fg
+    font-style: italic
+
+  /* Generic.Emph
+  .gr
+    color: $hl-regex
+
+  /* Generic.Error
+  .gh
+    color: $hl-constants
+
+  /* Generic.Heading
+  .gi
+    color: $hl-operators
+
+  /* Generic.Inserted
+  .go
+    color: $hl-fg
+
+  /* Generic.Output
+  .gp
+    color: $hl-fg
+
+  /* Generic.Prompt
+  .gs
+    color: $hl-fg
+    font-weight: bold
+
+  /* Generic.Strong
+  .gu
+    color: $hl-constants
+
+  /* Generic.Subheading
+  .gt
+    color: $hl-fg
+
+  /* Generic.Traceback
+  .kc
+    color: $hl-constants
+
+  /* Keyword.Constant
+  .kd
+    color: $hl-keyword
+
+  /* Keyword.Declaration
+  .kn
+    color: $hl-operators
+
+  /* Keyword.Namespace
+  .kp
+    color: $hl-operators
+
+  /* Keyword.Pseudo
+  .kr
+    color: $hl-keyword
+
+  /* Keyword.Reserved
+  .kt
+    color: $hl-regex
+
+  /* Keyword.Type
+  .ld
+    color: $hl-fg
+
+  /* Literal.Date
+  .m
+    color: $hl-strings
+
+  /* Literal.Number
+  .s
+    color: $hl-strings
+
+  /* Literal.String
+  .na
+    color: $hl-fg
+
+  /* Name.Attribute
+  .nb
+    color: $hl-constants
+
+  /* Name.Builtin
+  .nc
+    color: $hl-keyword
+
+  /* Name.Class
+  .no
+    color: $hl-constants
+
+  /* Name.Constant
+  .nd
+    color: $hl-keyword
+
+  /* Name.Decorator
+  .ni
+    color: $hl-constants
+
+  /* Name.Entity
+  .ne
+    color: $hl-constants
+
+  /* Name.Exception
+  .nf
+    color: $hl-keyword
+
+  /* Name.Function
+  .nl
+    color: $hl-fg
+
+  /* Name.Label
+  .nn
+    color: $hl-fg
+
+  /* Name.Namespace
+  .nx
+    color: $hl-fg
+
+  /* Name.Other
+  .py
+    color: $hl-fg
+
+  /* Name.Property
+  .nt
+    color: $hl-keyword
+
+  /* Name.Tag
+  .nv
+    color: $hl-keyword
+
+  /* Name.Variable
+  .ow
+    color: $hl-operators
+
+  /* Operator.Word
+  .w
+    color: $hl-fg
+
+  /* Text.Whitespace
+  .mf
+    color: $hl-strings
+
+  /* Literal.Number.Float
+  .mh
+    color: $hl-strings
+
+  /* Literal.Number.Hex
+  .mi
+    color: $hl-strings
+
+  /* Literal.Number.Integer
+  .mo
+    color: $hl-strings
+
+  /* Literal.Number.Oct
+  .sb
+    color: $hl-comment
+
+  /* Literal.String.Backtick
+  .sc
+    color: $hl-strings
+
+  /* Literal.String.Char
+  .sd
+    color: $hl-fg
+
+  /* Literal.String.Doc
+  .s2
+    color: $hl-strings
+
+  /* Literal.String.Double
+  .se
+    color: $hl-constants
+
+  /* Literal.String.Escape
+  .sh
+    color: $hl-fg
+
+  /* Literal.String.Heredoc
+  .si
+    color: $hl-strings
+
+  /* Literal.String.Interpol
+  .sx
+    color: $hl-strings
+
+  /* Literal.String.Other
+  .sr
+    color: $hl-regex
+
+  /* Literal.String.Regex
+  .s1
+    color: $hl-strings
+
+  /* Literal.String.Single
+  .ss
+    color: $hl-strings
+
+  /* Literal.String.Symbol
+  .bp
+    color: $hl-keyword
+
+  /* Name.Builtin.Pseudo
+  .vc
+    color: $hl-keyword
+
+  /* Name.Variable.Class
+  .vg
+    color: $hl-keyword
+
+  /* Name.Variable.Global
+  .vi
+    color: $hl-keyword
+
+  /* Name.Variable.Instance
+  .il
+    color: $hl-strings
+
+  /* Literal.Number.Integer.Long

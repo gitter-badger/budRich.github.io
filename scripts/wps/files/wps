@@ -1,0 +1,92 @@
+#!/bin/bash
+
+# wps - wallpaper setter
+# 
+# select random image from a folder
+# blur it and set it as wallpaper.
+# 
+# ctrl+c, ctrl+v by budRich 2017
+
+# SYNOPSIS:
+# wps [options] [optvalue]
+# 
+# OPTIONS:
+# -f FILE Use file instead of random
+# -d FOLDER search folder for picture
+# -b if set image is NOT blurred
+# -r if set sublfolders is included
+# -s t|c|b - toggle, clear, blur current wallpaper
+#
+# required: imagemagick, feh
+
+shopt -s extglob
+
+while getopts :f:d:s:br option; do
+  case "${option}" in
+    f) IMAGE=${OPTARG};;
+    d) optdir=${OPTARG};;
+    b) noblur=1;;
+    r) nosubs=1;;
+    s) mode=${OPTARG};;
+  esac
+done
+
+
+mkdir -p $HOME/.wps
+buclr=$HOME/.wps/wallpaperCLR.jpg
+bublr=$HOME/.wps/wallpaperBLR.jpg
+homclr=$HOME/wallpaperCLR.jpg
+homblr=$HOME/wallpaperBLR.jpg
+
+if [[ $mode = c ]]; then [[ -f $homclr ]] && exit || mode=t; fi
+if [[ $mode = b ]]; then [[ -f $homblr ]] && exit || mode=t; fi
+
+if [[ $mode = t ]]; then
+  toggleto=CLR
+  togglefrom=BLR
+  [[ -f $homclr ]] && toggleto=BLR && togglefrom=CLR
+  feh --bg-fill --no-fehbg $HOME/.wps/wallpaper$toggleto.jpg
+  cp -f $HOME/.wps/wallpaper$toggleto.jpg $HOME/wallpaper$toggleto.jpg
+  rm -f $HOME/wallpaper$togglefrom.jpg
+  exit
+fi
+
+for wp in BLR CLR; do 
+  rm -f $HOME/.wps/wallpaper$wp.jpg
+  rm -f $HOME/wallpaper$wp.jpg
+done
+
+if [[ -z $IMAGE ]]; then
+  BASEFOLDER=$HOME/Pictures/solwp/
+  [[ -n $optdir ]] && BASEFOLDER+="$optdir/"
+  [[ -n $nosubs ]] && lsopt="-R" || lsopt=""
+  IMAGE=$(ls $lsopt $BASEFOLDER*.jpg | sort -R | tail -1)
+fi
+
+[[ -n $noblur ]] && feh --bg-fill --no-fehbg $IMAGE \
+  && cp -f $IMAGE $homclr
+
+cp -f $IMAGE $buclr
+
+# set wallpaper
+
+IMAGE=$buclr
+
+cp -f $IMAGE $bublr
+IMAGE=$bublr
+# All options are here: 
+# http://www.imagemagick.org/Usage/blur/#blur_args
+# BLURTYPE="0x5" 
+BLURTYPE="0x2" 
+# BLURTYPE="5x2" 
+# BLURTYPE="2x8" 
+# BLURTYPE="2x3" 
+
+convert -resize 25% $IMAGE $IMAGE
+convert $IMAGE -blur $BLURTYPE $IMAGE
+convert -resize 400% $IMAGE $IMAGE
+
+# set wallpaper
+[[ -z $noblur ]] && feh --bg-fill --no-fehbg $bublr \
+  && cp -f $bublr $homblr
+  

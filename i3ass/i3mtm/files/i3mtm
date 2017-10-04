@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# i3mtm - move to mark
+# ====================
+# patchwork by: budRich 2017
+#
+# when launched without flags, i3mtm checks
+# floating status of current window. If it is
+# tiled, the window becomes floating.
+# if it is floating, a search for marks is done
+# if no marks are found, window becomes tiled.
+# otherwise a dmenu asks for a mark to move window to.
+# if no selection is made, window is tiled but not moved.
+# otherwise window is tiled and moved to selected mark.
+#
+# with -m flag window is treaded as if it was floating
+# even if it is tiled. (menu is forced)  
+#
+# examples
+# --------
+# you could replace your `floating toggle` binding with this:  
+# `bindsym Mod3+f exec --no-startup-id exec i3mtm`  
+# `bindsym Mod3+Shift+f exec --no-startup-id exec i3mtm -m`  
+#
+# dependencies
+# ------------
+# * __i3get__ - https://redd.it/6wyarw
+# * __dmenu__
+#
+# source
+# ------
+# https://gist.github.com/budRich/378a28c2582787f32bac99727f5485d6
+#
+# discussion
+# ----------
+# https://www.reddit.com/r/i3wm/comments/6xor8l/oci3mtm/
+#
+# porn
+# ----
+# https://redd.it/6xp6ul
+
+# IGNORE_MARKS=
+IGNORE_MARKS="alfa,beta,sidebar"
+# DMENU_OPTIONS=
+DMENU_OPTIONS="-h 16"
+# DMENU_OPTIONS="-h 16 -fn Inconsolata-18:bold"
+
+
+show_menu(){
+  mrks=$(comm -3 <(printf "${IGNORE_MARKS}" | tr ',' "\n" | sort) \
+              <(i3-msg -t get_marks | tr -d '[]"' | tr ',' "\n" | sort) \
+              | awk '{$2=$2};1' )
+  [[ -z $mrks ]] && \
+    i3-msg "[con_id=${cur[0]}]" floating disable, focus && exit
+  trg=$(printf "${mrks}" | dmenu ${DMENU_OPTIONS} -p "move to mark:")
+  [[ -z $trg ]] && \
+    i3-msg "[con_id=${cur[0]}]" floating disable, focus ||
+    i3-msg "[con_id=${cur[0]}]" floating disable, move to mark ${trg}
+    i3-msg "[con_id=${cur[0]}]" focus
+}
+
+
+cur=($(i3get -r nf))
+if [[ $1 = '-m' ]] || [[ ${cur[1]#*_} =~ on ]];then 
+  show_menu
+else
+  i3-msg "[con_id=${cur[0]}]" floating enable, focus
+fi

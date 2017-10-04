@@ -1,0 +1,60 @@
+@import compass
+@import compass/css3
+@import partials/mixins
++font-face("Fixedsys Excelsior 3.01", "../fonts/FSEX300")
+@import partials/variables
+@import partials/normalize
+@import partials/glyphicons
+@import partials/banner
+@import partials/sidebar
+@import partials/base
+@import partials/syntax-highlighting
+
+
+.lolban, .logo
+  font-family: "Fixedsys Excelsior 3.01", monospace
+  font-size: 1em
+  overflow: hidden
+  whitespace: pre
+  line-height: 0.8
+  margin: 0px
+  padding: 0px
+
+h6
+  font-size: 0.5em
+  color: $blk
+  margin: 0px
+  padding: 0px
+
+h5
+  margin: 0px
+  padding: 0px
+  font-style: normal
+  line-height: 1
+  font-size: 0.6em
+  font-weight: normal
+  color: darken($fg, 20%)
+
+hr
+  border: 1px solid $blk
+
+
+
+a
+  color: $blu
+  &:hover
+    color: lighten($blu, 10%)
+
+.postquote
+  margin: 0px
+  margin-top: 2em  
+  font-family: serif
+  font-size: 1.2em
+  font-style: italic
+  overflow: hidden
+  line-height: 1.3em
+  padding: 0.1em
+  padding-bottom: 1.5em
+  color: darken($fg, 8%)
+  whitespace: pre
+    

@@ -1,0 +1,131 @@
+#!/bin/bash
+
+# display splash
+
+tput reset
+trgurl=${1}
+
+sqlite3 $HOME/.newsbeuter/cache.db 'select * from rss_item' > /tmp/nbdbdump
+
+# hmmm...
+# val="hello|beautiful|world" # assume this string comes from a database query
+# read a b c <<< $( echo ${val} | awk -F"|" '{print $1" "$2" "$3}' )
+
+# echo $a #hello
+# echo $b #beautiful
+# echo $c #world
+
+start=
+cnt=0
+i=0
+# get title, feedname
+while IFS='' read -r line; do
+    [[ $line =~ "$trgurl" ]] && start=$line
+		[[ -z $start ]] && continue
+		[[ $cnt -gt 10 ]] && break
+		mojs="$line"
+		# fix content getting
+		# only fetch last line now..
+		while [[ ${mojs} =~ '|' ]]; do
+			((cnt++))
+		 	val=${mojs%%|*}
+			[[ $cnt = 3 ]] && artttl="${val}"
+			[[ $cnt = 6 ]] && fedurl="${val}"
+			[[ $cnt = 4 ]] && fedttl="${val}"
+			[[ $cnt = 8 ]] && artcnt="${val}"
+			[[ $cnt = 10 ]] && artfil="${val}"
+			mojs=${mojs#*|}
+		done
+done < /tmp/nbdbdump
+
+# get tags from feed by grepping feedur in urls
+fedtag=$(grep "$fedurl" $HOME/.newsbeuter/urls)
+for tag in ${fedtag#*' '}; do
+	tag=${tag:1:-1}
+	[[ ${tag:0:1} = '~' ]] && fedcust=${tag:1}
+	
+	# if tag is special do special stuff
+	action=fed
+	[[ $tag = pod ]] && action=pod
+	[[ $tag = vid ]] && action=vid
+done
+
+if [[ $action = pod ]]; then
+	if [[ $trgurl =~ 'youtube.com' ]]; then
+		echo "this is a youtube link, requested action audio only" | less
+	else
+		quefil=$(<$HOME/.downieque) 
+		# check if file already in que
+		[[ "${quefil}" =~ ${artfil} ]] && exit
+
+		# else add file to que
+		toque="pod ${fedcust}:
+		fil=${artfil}
+		ttl=${artttl}
+		url=${trgurl}
+		not=${artcnt}
+
+		"
+		echo -e "${toque}${quefil}" | sed -e 's/^[ \t]*//' > $HOME/.downieque
+
+		# start downie
+		downie &
+		# cat $HOME/.downieque | less
+
+		# pod fedcust:
+		# file=$artfil
+		# ttl=$artttl
+		# add artfil to download que
+		# if downloader not running, start.
+
+		#
+
+		exit
+	fi
+fi
+
+# else get nice html, make cool md
+
+
+# echo -e "
+# artttl ${artttl}
+# action ${action}
+# fedcust ${fedcust}
+# tags ${kunke}
+# fedurl ${fedurl}
+# fedttl ${fedttl}
+# artcnt ${artcnt}
+# artfil ${artfil}
+# " | less
+exit
+
+# title=$(echo $srch | cut -d${cuts} -f2)
+echo "${title}" | less
+
+# else fetch html.
+curl --silent "$trgurl" > /tmp/tmp.html
+
+# check for mp3 and title
+mp3found=$(sed -n -e 's/^.*content="\(.*\.mp3\)">/\1/p' /tmp/tmp.html)
+title=$(sed -n -e 's/^.*<title>\(.*\)<\/title>/\1/p' /tmp/tmp.html)
+echo -e "${title}" | xclip
+exit
+
+# if mp3 - pod, download depending on title
+
+curl --silent "$trgurl" | pandoc -S --reference-links --normalize -f html -t  markdown > /tmp/tmp.md 
+# && subl /tmp/tmp.md
+start=
+while IFS='' read -r line || [[ -n "$line" ]]; do
+    [[ $line = '<div class="entrytext">' ]] && start=1 && continue
+    [[ $line = '<div class="entry-content">' ]] && start=1 && continue
+    [[ $line = '<div id="info_text">' ]] && start=1 && continue
+		[[ -z $start ]] && continue
+		[[ $line = '</div>' ]] && break
+		output+="$line\n"
+done < /tmp/tmp.md
+
+printf "${output}" | highlight  --out-format=xterm256 --style=candy --src-lang=md | less -R
+
+# MERC_KEY=w6hwYOQEdjQwCyUT7zbeyzRiXyEgXA506zhcgit3
+# keydisplay s s "$trgurl"

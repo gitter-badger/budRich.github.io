@@ -1,0 +1,54 @@
+! rxvt-unicode-256color settings . 
+! curated by budRich since 2015
+! bulle
+
+URxvt*foreground:          fg
+URxvt*background:          bg
+URxvt*cursorColor:         fg
+URxvt*cursorColor2:        bg
+URxvt*underlineColor:      ylw
+URxvt*highlightColor:      blu
+URxvt*highlightTextColor:  mag
+
+URxvt*perl-ext-common: default
+
+URxvt*cursorBlink:         1
+URxvt*scrollBar:           false
+URxvt*internalBorder:      padd
+URxvt*url-launcher:        brws
+URxvt*saveLines:           32767
+URxvt*iso14755:            false
+URxvt*iso14755_52:         false
+
+URxvt*cutchars: "\"()*,<>[]{}|\'"
+URxvt*font:     xft:fnt3
+URxvt*boldFont:       
+URxvt*italicFont:     
+URxvt*boldItalicFont: 
+! URxvt*boldItalicFont:      xft:fnt1:style=bolditalic:pixelsize=fsz1
+!FixedsysExcelsiorIIIb-L2_Mono.ttf
+URxvt.keysym.C-0: command: \033]710;xft:Fixedsys Excelsior 3.01\-L2 Mono:style=Regular\007
+URxvt.keysym.C-9: command: \033]710;xft:fnt2:size=fsz2\007
+
+URxvt*print-pipe: cat > $(echo /tmp/urxvt-dump.$(date +%Y-%m-%d_%H:%M:%S_%N))
+
+URxvt*color0:              blk
+URxvt*color8:              blk2
+URxvt*color1:              red
+URxvt*color9:              red2
+URxvt*color2:              grn
+URxvt*color10:             grn2
+URxvt*color3:              ylw
+URxvt*color11:             ylw2
+URxvt*color4:              blu
+URxvt*color12:             blu2
+URxvt*color5:              mag
+URxvt*color13:             mag2
+URxvt*color6:              cyn
+URxvt*color14:             cyn2
+URxvt*color7:              wht
+URxvt*color15:             wht2
+
+URxvt*colorBD:             blk2
+URxvt*colorIT:             red2
+URxvt*colorUL:             grn2

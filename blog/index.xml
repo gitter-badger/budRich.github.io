@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blog on Mr Beaner - Put Coffee in your rice!</title>
+    <link>///home/bud/pub/www/blog/</link>
+    <description>Recent content in blog on Mr Beaner - Put Coffee in your rice!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Wed, 20 Sep 2017 15:44:11 +0200</lastBuildDate>
+    
+	<atom:link href="///home/bud/pub/www/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>fresh_start</title>
+      <link>///home/bud/pub/www/blog/fresh_start/</link>
+      <pubDate>Sun, 01 Oct 2017 19:13:40 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/fresh_start/</guid>
+      <description>First thins to do on a fresh install These are the steps I take to setup my work environment on a fresh install of Peppermint OS 8. Most of the steps are valid on other GNU/Linux distributions, but I don&amp;rsquo;t recommend anyone to blindly follow and install everything.
+Before doing anything else i start syncing Dropbox. I start with this step because it can take up to 45 minutes, so while Dropbox is syncing there is time to install and setup other programs.</description>
+    </item>
+    
+    <item>
+      <title>perfect_folders</title>
+      <link>///home/bud/pub/www/blog/perfect_folders/</link>
+      <pubDate>Fri, 29 Sep 2017 17:18:30 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/perfect_folders/</guid>
+      <description>I have tried many different ways to organize my files. I think the current setup I have is by far the best. It uses Dropbox to ensure cloud based backup and Hugo to create this site you are looking at where many of my actual dotfiles and scripts are viewable and auto-updated.
+folder structure This might look overcomplicated and hard to setup, but it actually makes a lot of sense and takes no time to setup.</description>
+    </item>
+    
+    <item>
+      <title>mouseback</title>
+      <link>///home/bud/pub/www/blog/mouseback/</link>
+      <pubDate>Mon, 25 Sep 2017 17:20:01 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/mouseback/</guid>
+      <description>A while ago I got irritated how messy my i3 config file looked, and I researched alternative hotkey managers. I tried sxhkd and it is a fine piece of code. I got a much cleaner setup of the hotkeys and I could do stuff that i wasn&amp;rsquo;t able to do with i3.
+But a couple of days ago, i realized that my i3 config could be just as clean as sxhkd by using variables.</description>
+    </item>
+    
+    <item>
+      <title>swedish_keyboards</title>
+      <link>///home/bud/pub/www/blog/swedish_keyboards/</link>
+      <pubDate>Mon, 25 Sep 2017 17:19:12 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/swedish_keyboards/</guid>
+      <description>when I was working as a technical support agent I received several calls from angry men who couldn&amp;rsquo;t find the @ symbol on the keyboard. When I explained that they had to hold Alt-Gr and pressing 2 at the same time, they exploded with anger and told me to tell the technicians to make a new keyboard layout! I explained it&amp;rsquo;s an old standard and agreed it was stupid, but that it would probably never change.</description>
+    </item>
+    
+    <item>
+      <title>me_myself_and_i3</title>
+      <link>///home/bud/pub/www/blog/me_myself_and_i3/</link>
+      <pubDate>Mon, 25 Sep 2017 17:18:30 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/me_myself_and_i3/</guid>
+      <description>Or, how I became a tiler i3 is a dynamic window manager for X. I use i3, and I really like it. There are many similar window managers and I haven&amp;rsquo;t tried many of them. I have run and tinkered with bug.n on windows and tested awesome and dwm on GNU/Linux.
+Maybe I was unlucky and had bad timing with awesome, I was very fresh on GNU/Linux and I think the awesome project was in a transition phase, but I had a hard time grasping all of it.</description>
+    </item>
+    
+    <item>
+      <title>install_i3</title>
+      <link>///home/bud/pub/www/blog/install_i3/</link>
+      <pubDate>Mon, 25 Sep 2017 17:17:39 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/install_i3/</guid>
+      <description>You can probably install i3 directly from your distributions package manager. But If you want to be sure to get the latest version or a fork you need to download and compile the source code.
+i3-gaps i3-gaps is a fork of i3 developed by Airblader who happens to be one of the main developers on vanilla/normal i3. i3-gaps has some features that is not 100% in sync with the design philosophy of normal i3, that&amp;rsquo;s why it is a fork.</description>
+    </item>
+    
+    <item>
+      <title>font_rendering</title>
+      <link>///home/bud/pub/www/blog/font_rendering/</link>
+      <pubDate>Mon, 25 Sep 2017 17:15:34 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/font_rendering/</guid>
+      <description>It is easy to get used to bad font rendering. But there are some simple steps one can take to get great looking fonts on *GNU/*Linux.
+Below is a summary of an article on binarytides, with some spice.
+download the following fonts from
+http://www.google.com/fonts/
+ Droid Sans Droid Sans Mono Droid Serif Noto Sans Noto Serif Open Sans  Unzip &amp;lsquo;em and place them in ~/.fonts Download and place this .</description>
+    </item>
+    
+    <item>
+      <title>dmenu</title>
+      <link>///home/bud/pub/www/blog/dmenu/</link>
+      <pubDate>Mon, 25 Sep 2017 17:14:40 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/dmenu/</guid>
+      <description>dmenu is one of my favorite tools. It is a very simple program that displays a menu. It is often used as a lightweight launcher. But I&amp;rsquo;ve found that it is also the most efficient way to send user input to shell scripts, without having the user using a clumsy terminal command.
+It is maintained by suckless, a group that have many interesting tools, programs and ideas.
+I often use dmenu with my own scripts, and will describe how, in future articles.</description>
+    </item>
+    
+    <item>
+      <title>compton_setup</title>
+      <link>///home/bud/pub/www/blog/compton_setup/</link>
+      <pubDate>Mon, 25 Sep 2017 17:14:06 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/compton_setup/</guid>
+      <description>compton is a lightweight compositor for X that works really well with i3. A compositor adds some eye-candy like transparency and drop-shadows to the windows. But it also do some anti screen tearing magic and such. The compton setup can however be a bit tricky and it all depends on your own preferences and hardware.
+Below are some snippets from my .compton.conf that is more i3 then hardware related that you might find useful:</description>
+    </item>
+    
+  </channel>
+</rss>

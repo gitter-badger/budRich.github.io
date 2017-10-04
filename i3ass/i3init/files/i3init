@@ -1,0 +1,426 @@
+#!/bin/bash
+
+declare -A acnf
+CONFIG_FILE="$HOME/bin/i3ass/assconf"
+# function loadconf
+# puts content of CONFFILE in array (acnf)
+# synopsis: loadconf [CONFIGFILE]
+# acnf is assumed to be declared globally outside of function
+# example of array:
+# acnf[window-sublime-instance]=sublime_text
+loadconf(){
+  # !!! fix strange bug with name of first container..
+
+  OIFS=$IFS
+  IFS="␜"
+
+  a=($(awk \
+  ' BEGIN{sep="␜";val=""}
+    !/[=:]/ && $1!="#" && $1!="" {layout[sctn]=layout[sctn] $0" "}
+    /[=]/{split($0,k,"=",seps);key=k[1];val=k[2];\
+        if(val){print sctt "-" sctn "-" key "|" val sep;val=""}}
+    /[:]/  \
+      {sctt=$1;sctn=substr($2,1,length($2)-1)}
+    END{
+      for (i in layout)
+        print "layout" "-" i "|" layout[i] sep
+    }
+  ' $CONFIG_FILE ))
+
+
+  for k in ${a[@]}; do
+    ku=${k%|*}
+    acnf[${ku:1}]=${k#*|}
+  done
+
+  IFS=$OIFS
+
+}
+
+# function loapply
+# creates a layout, with all its stacks, launches all spawn windows
+# synopsis: loapply LAYOUT
+loapply(){
+  [[ -z $acnf ]] && loadconf 
+  sdim=($(getscreen))
+
+  local trg=$1
+
+  local slo= contas= cur= curname= spwn= sids= cmd= sslo=
+  local prfx= setting=
+
+  declare -A ar
+  declare -A lord
+
+  # Init stacks
+  # stack parent, M for master
+  ar[stack-$trg-par]="C:alfa"
+  layouts=($trg)
+  while [[ -n ${layouts[0]} ]]; do
+    lh=$((${#layouts[@]}-1))
+    lo=${layouts[$lh]}
+    unset 'layouts[$lh]'
+    ar[stack-$lo-layout]=${acnf[layout-$lo]}
+
+    # unique containers in layout
+    ar[stack-$lo-containers]=$(echo ${ar[stack-$lo-layout]} \
+              | sed 's/ //g' | LC_ALL=C tr -s '\0-\255')
+
+    # analyze containers for spawns and stacks
+    for (( i=0; i<${#ar[stack-$lo-containers]}; i++ )); do
+      cur=${ar[stack-$lo-containers]:$i:1}
+      name=${acnf[container-$cur-name]}
+      [[ $name != master ]] && conkylaunch $name $cur
+      cspwn=${acnf[container-$cur-spawn]}
+      # launch spawns here
+      # ${acnf[window-$cspwn-command]} > /dev/null 2>&1 &
+      # init dimensions of container for later.
+      ar[container-$cur-pheight]=1
+      ar[container-$cur-pwidth]=1
+
+      # check for stacks belonging to spawns
+      wstk=${acnf[window-$cspwn-stack]}
+      if [[ -n $wstk ]]; then
+        ar[stack-$wstk-pos]=${acnf[window-$cspwn-stackpos]}
+        ar[stack-$wstk-size]=${acnf[window-$cspwn-stacksize]}
+        # stack parent, W for window
+        ar[stack-$wstk-par]="W:"$cspwn
+        layouts+=($wstk)
+        stacks+=($wstk)
+      fi
+
+      # check for spawns belonging to the container
+      cstk=${acnf[container-$cur-stack]}
+      if [[ -n $cstk ]]; then
+        ar[stack-$cstk-pos]=${acnf[container-$cur-stackpos]}
+        ar[stack-$cstk-size]=${acnf[container-$cur-stacksize]}
+        # stack parent, C for container
+        ar[stack-$cstk-par]="C:$name"
+        [[ $name = master ]] && ar[stack-$cstk-par]="C:alfa"
+        layouts+=($cstk)
+        stacks+=($cstk)
+      fi
+      name=
+      cspwn=
+      cstk=
+      wstk=
+      cur=
+    done
+  done
+
+  # analyze layouts and create stacks
+  for stack in ${stacks[@]}; do
+    # analyze
+    for row in ${ar[stack-$stack-layout]}; do
+      ((++nr)) # rownumber
+      for (( i=0; i<${#row}; i++ )); do
+        ((++nc)) # colnumber
+        cur=${row:$i:1}
+        ar[stack-$stack-data-$nr-$nc]=$cur
+        loc=${ar[stack-$stack-data-$nr-$((nc-1))]:-@}
+        abc=${ar[stack-$stack-data-$((nr-1))-$nc]:-@}
+        vbr=""
+        hbr=""
+        [[ $loc = $cur ]] && vbr=0 \
+          && ar[container-$cur-pwidth]=$((ar[container-$cur-pwidth]+1))
+        [[ $abc = $cur ]] && hbr=0 \
+          && ar[container-$cur-pheight]=$((ar[container-$cur-pheight]+1))
+        ar[stack-$stack-data-V-$nr-$((nc-1))]=${vbr:-1}
+        ar[stack-$stack-data-H-$((nr-1))-$nc]=${hbr:-1}
+        ar[stack-$stack-data-width]=$nc
+      done
+      nc=0
+    done
+    ar[stack-$stack-data-height]=$nr
+    nr=0
+
+    # create
+    csn=${stack}
+    csc=${ar[stack-$stack-containers]}
+    if [[ ${#csc} -eq 1 ]];then
+      # create singlestacks
+      par=$csc
+      parname=${acnf[container-$par-name]}
+      i3gw alfa
+      i3-msg [con_mark=alfa] layout splitV, split V
+      i3gw beta
+      i3-msg [con_mark=beta] layout splitV, split V
+      i3-msg [class=$parname] floating disable, mark $par, \
+        move to mark beta, focus parent
+      i3-msg mark $csn
+
+      echo "$csn single"
+    else
+      # loop coords, find splits and split direction
+      low=${ar[stack-$csn-data-width]}
+      loh=${ar[stack-$csn-data-height]}
+
+      tosplit=(1-1-$low-$loh)
+      ita=1
+      while [[ -n $tosplit ]]; do
+        for split in ${tosplit[@]}; do
+          crds=(${split//-/' '})
+          sx=${crds[0]}; sy=${crds[1]}; ex=${crds[2]}; ey=${crds[3]}
+          width=$(((ex-sx)+1)) 
+          height=$(((ey-sy)+1))
+          fnd=()
+          walsumV=0
+          for (( h=$((sy)); h<$((sy+height-1)); h++ )); do
+            walsumH=0
+            for (( w=$sx; w<$((sx+width)); w++ )); do
+              walsumV=$(($walsumV + ${ar[stack-$csn-data-V-$h-$w]:-0}))
+              walsumH=$(($walsumH + ${ar[stack-$csn-data-H-$h-$w]:-0}))
+            done
+            [[ $walsumH -eq $width ]] && fnd+=(V$h) && walsumH=0
+          done
+          [[ $walsumV -eq $height ]] && fnd+=(H$w) && walsumV=0
+
+          # if multiple splits, last found is the cutter
+          # fix is last index of fnd
+          [[ $((${#fnd[@]}-1)) -lt 1 ]] && fix=0 || fix=$((${#fnd[@]}-1))
+          mnd=${fnd[$fix]}
+          
+          # create two new layouts.
+          ex1=$ex
+          ey1=$ey
+          sx2=$sx
+          sy2=$sy
+          dirre=${mnd:0:1}
+          [[ ${mnd:0:1} = V ]] && ey1=${mnd:1} && sy2=$((ey1+1))
+          [[ ${mnd:0:1} = H ]] && ex1=${mnd:1} && sx2=$((ex1+1))
+
+
+          par=${ar[stack-$csn-data-$sy-$sx]}   # parent container
+          cld=${ar[stack-$csn-data-$sy2-$sx2]} # child container
+          parname=${acnf[container-$par-name]}   # name of parent
+          cldname=${acnf[container-$cld-name]}   # name of child
+          # if first iteration, move'n'mark parent
+          if [[ $ita = 1 ]]; then
+            [[ ${ar[stack-$csn-pos]} =~ left|right ]] \
+              && dirk=V || dirk=H
+            i3gw alfa
+            i3-msg [con_mark=alfa] layout split$dirk, split $dirk
+            i3gw beta
+            i3-msg [con_mark=beta] layout split$dirk, split $dirk
+            lord[$par]=1
+            i3-msg [class=$parname] floating disable, mark $par, \
+              move to mark beta
+          else
+            # keep track how many times first container 
+            # has been parent for accurate 'focus parent' later.
+            [[ ${!lord[@]} = $par ]] \
+              && lord[$par]=$((${lord[$par]}+1))
+          fi
+          
+          # split parent
+          i3-msg [con_mark=$par] split $dirre 
+          echo "splitus $dirre"
+    
+          # move child
+          i3-msg [class=$cldname] floating disable, \
+            move to mark $par, mark $cld
+
+          # calculate dimensions, resize
+          w1=$((sx+ex1-1)); h1=$((sy+ey1-1))
+
+          [[ ${dirre} = "V" ]] && \
+            perca=$( echo "scale=2;${h1}/$height"*100 | bc )
+          [[ ${dirre} = "H" ]] && \
+            perca=$( echo "scale=2;${w1}/$width"*100 | bc )
+          rsz=$((${perca%.*}-50))
+
+          if [[ $rsz != 0 ]]; then
+            if [[ $rsz -lt 0 ]]; then
+              [[ ${dirre} = V ]] && zdir=up || zdir=left
+              rsz=$((rsz*-1)) trg=$cld
+            else
+              [[ ${dirre} = V ]] && zdir=down || zdir=right
+              trg=$par
+            fi
+
+            i3-msg [con_mark=${trg}] resize grow ${zdir} \
+              ${rsz} px or ${rsz} ppt > /dev/null 2>&1
+            echo risa $trg $rsz $zdir
+          fi
+
+          # if first and last char in a layout is the same, split is done
+          newsplits=()
+          [[ ${ar[stack-$csn-data-$ey1-$ex1]} != $par ]] \
+            && newsplits+=("$sx-$sy-$ex1-$ey1")
+          [[ ${ar[stack-$csn-data-$ey-$ex]} != $cld ]] \
+            && newsplits+=("$sx2-$sy2-$ex-$ey")
+          ((ita++))
+        done
+        tosplit=("${newsplits[@]}")
+      done
+      # done splitting, mark stack
+      for (( i = 0; i < ${lord[@]}; i++ )); do fp+=",focus parent"; done
+      i3-msg [con_mark=${!lord[@]}] focus ${fp}
+      i3-msg mark $csn
+      unset 'lord[@]'
+      fp=""
+    fi
+    for (( i = 0; i < ${#csc}; i++ )); do
+      cur=${csc:$i:1}
+      spwn=${acnf[container-$cur-spawn]}
+      rname=${acnf[container-$cur-name]}
+      # ins=${acnf[window-$spwn-command]}
+      # make containers tabbed,
+      i3-msg [con_mark=$cur] split v, layout tabbed, mark $rname 
+      # populate with spawns
+      # i3-msg [instance=$ins] floating disable, move to mark "$cur"
+      ${acnf[window-$spwn-command]}
+      # mark parent container
+      i3-msg [con_mark=$rname] mark $cur, focus, focus parent
+      i3-msg mark $rname
+      # remove temps 
+      i3-msg [con_mark=$cur] kill
+    done
+    case ${ar[stack-$csn-pos]} in
+      right ) 
+        stx=$((${sdim[0]}-${ar[stack-$csn-size]}))
+        sty=0
+        stw=${ar[stack-$csn-size]}
+        sth=${sdim[1]}
+      ;;
+      left ) 
+        stx=0
+        sty=0
+        stw=${ar[stack-$csn-size]}
+        sth=${sdim[1]}
+      ;;
+      top ) 
+        stx=0
+        sty=0
+        sth=${ar[stack-$csn-size]}
+        stw=${sdim[0]}
+      ;;
+      bottom ) 
+        stx=0
+        sty=$((${sdim[1]}-${ar[stack-$csn-size]}))
+        sth=${ar[stack-$csn-size]}
+        stw=${sdim[0]}
+      ;;
+    esac
+
+    i3-msg [con_mark=$csn] focus, focus parent, floating enable, \
+      move absolute position $stx px $sty px,\
+      resize set $stw px $sth px
+    i3-msg [con_mark=alfa] kill
+    i3-msg [con_mark=beta] kill
+    # i3-msg [con_mark=$csn] move scratchpad
+  done
+
+  # create master layout
+
+
+  # conky -c $HOME/.config/i3/conkydesktop  > /dev/null 2>&1 &
+
+  i3gw gurra
+  i3-msg [con_mark=gurra] split h, layout tabbed, focus parent
+  i3-msg mark beta, focus parent
+  i3-msg mark alfa
+
+  i3run -i conkydesktop -e conky -c $HOME/.config/i3/conkydesktop
+
+  i3-msg [instance=conkydesktop] floating disable, \
+    move to mark gurra, mark ${acnf[container-M-name]}, \
+    split h, layout tabbed
+
+  i3-msg [con_mark=gurra] layout default, split h
+
+  spwn=${acnf[container-M-spawn]}
+  ${acnf[window-$spwn-command]}
+
+  i3-msg [con_mark=gurra] kill
+  i3-msg [con_mark=beta] layout default, split h
+  i3-msg [con_mark=alfa] layout default, split h
+
+  # show stacks that are visible
+  for stack in ${stacks[@]}; do
+    [[ ${ar[stack-$stack-pos]} =~ left|right ]] \
+      && dirk=H || dirk=V
+    parus=(${ar[stack-$stack-par]/:/' '})
+    par=${parus[1]}
+    [[ ${parus[0]} = W ]] && par=tmpm \
+      && i3-msg [instance=${acnf[window-${parus[1]}-instance]}] mark $par, \
+         split $dirk \
+    || i3-msg [con_mark=$par] layout split$dirk
+      echo $par : ${acnf[window-${parus[1]}-instance]}
+    
+    i3-msg [con_mark=$stack] move to workspace 1, floating disable, move to mark $par
+
+    [[ $dirk = V ]] && \
+      perca=$( echo "scale=2;${ar[stack-$stack-size]}/${sdim[1]}"*100 | bc )
+    [[ $dirk = H ]] && \
+      perca=$( echo "scale=2;${ar[stack-$stack-size]}/${sdim[0]}"*100 | bc )
+
+
+    rsz=$((${perca%.*}-50))
+    if [[ $rsz != 0 ]]; then
+      if [[ $rsz -lt 0 ]]; then
+        [[ $dirk = V ]] && zdir=up || zdir=left
+        rsz=$((rsz*-1)) trg=$stack
+      else
+        [[ $dirk = V ]] && zdir=down || zdir=right
+        trg=$par
+      fi
+      echo kucka $rsz $zdir $trg $perca
+      i3-msg [con_mark=$trg] resize shrink ${zdir} \
+        ${rsz} px or ${rsz} ppt > /dev/null 2>&1
+    fi
+
+    [[ $par = tmpm ]] && i3-msg [con_mark=$par] unmark,\
+      focus parent, border pixel 1
+  done
+}
+
+# function conkylaunch
+# creates an empty conkywindow
+# synopsis: conkylaunch WINDOWNAME [TEXT]
+conkylaunch(){
+  local class=${1:?"conkylaunch: Argument missing: no layout"}
+  local txt=${2:-""}
+  local fcnf= cnt=0 rid=
+  # create root, create tmpconfig
+  fcnf="
+  update_interval 30000
+  total_run_times 0
+  own_window yes
+  own_window_colour 111313
+  own_window_class ${class}
+  minimum_size 50 50
+  TEXT
+  ${txt}
+  "
+
+  rm -f /tmp/conky_${class} \
+    && printf "${fcnf}" > /tmp/conky_${class}
+
+  i3run -c ${class} -e conky -c /tmp/conky_${class}
+}
+
+# function getscreen
+# returns screenwidth screenheight
+# todo: use awk, might be faster.
+getscreen(){
+  local wrks=$(i3-msg -t get_workspaces)
+  for line in ${wrks//,/' '}; do
+    [[ ! $line =~ width|height ]] && continue
+    [[ $line =~ width ]] && local scrnw=${line:8}
+    [[ $line =~ height ]] && local scrnh=${line:9:-1}
+  done
+  echo $scrnw $scrnh
+}
+
+loapply main
+
+# dbug
+
+for k in ${!acnf[@]}; do
+  lsd+="$k: ${acnf[$k]}\n"
+done
+
+printf "$lsd" | sort > /tmp/i3inita && subl /tmp/i3inita
+
+

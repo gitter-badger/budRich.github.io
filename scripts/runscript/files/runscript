@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# run the script currently open in sublime.
+# output is written to tempfile and opened in sublime.
+
+a=$(xdotool search --onlyvisible --classname sublime_text getwindowname)
+b=${a%%' - '*}
+b=${b/'~'/$HOME}
+# notify-send $b
+chmod +x $b
+c=$(${b})
+[[ -n $c ]] && printf "${c}" \
+  > /tmp/rs_${b##*/} && subl /tmp/rs_${b##*/}

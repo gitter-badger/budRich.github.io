@@ -1,0 +1,242 @@
+# i3config - curated by budRich since 2016
+# ========================================
+
+## todo
+#  ====
+# media keys, az 
+#   doesn't work, c made player float..
+#
+# sublime sections for i3. add space when commenting.
+#
+# add window rules.
+# get to work with the ass...
+
+## initializatione
+#  ===============
+set $exe exec --no-startup-id exec
+
+set $left1   y
+set $down1   u
+set $up1     i
+set $right1  o
+
+set $left2   h
+set $down2   j
+set $up2     k
+set $right2  l
+
+set $left3   n
+set $down3   m
+set $up3     comma
+set $right3  period
+
+set $fntsz 8
+set $browser -c Vivaldi-stable -e vivaldi
+set $editor -i sublime_text -e subl
+set $filemanager -i spacefm -e spacefm 
+set $bigsize   10 px or 10 ppt
+set $smallsize 3 px or 3 ppt
+set $bigmove   30 px
+set $smallmove 1 px
+
+set $alt Mod1
+set $win bindsym Mod4
+set $fdmtm floating disable, move to mark
+
+set_from_resource $act i3wm.act #111313
+set_from_resource $ina i3wm.ina #111313
+set_from_resource $red i3wm.red #FF0000
+set_from_resource $fnt i3wm.fnt Terminus
+
+## panicbuttons
+#  ============
+bindsym F4         kill
+$win+Shift+q       exit
+$win+Control+r     reload
+$win+$alt+r   $exe i3-msg restart
+$win+Shift+x  $exe lock.sh
+$win+Escape   $exe buddown
+
+## terminals
+#  =========
+$win+Return           $exe i3run -i floatterm -e urxvtc -name floatterm
+$win+Shift+Return     $exe i3run -i termsmall -e urxvtc -name termsmall
+$win+Control+Return   $exe i3run -i termside  -e urxvtc -name termside
+
+## i3run - sane applaunching for the modern tiler
+#  ==============================================
+$win+e $exe i3run $filemanager
+$win+1 $exe i3run $editor
+$win+2 $exe i3run $browser
+$win+3 $exe i3run -i irssi -e urxvtc -name irssi -e irssi
+$win+4 $exe i3run -i ncmpcpp -e urxvtc -name ncmpcpp -e ncmpcpp
+$win+5 $exe i3run -i qbittorrent -e qbittorrent
+$win+6 $exe i3run -i newsbeuter -e urxvtc -name newsbeuter -e newsbeuter
+$win+9 $exe i3run -i htop -e urxvtc -name htop -e htop
+$win+grave $exe i3run -i gcolor2 -e gcolor2
+
+## barmenu
+#  =======
+$win+BackSpace $exe /home/bud/.config/polybar/scripts/togglebar
+$win+r $exe rofi -show run -config ~/.config/rofi/fullscreen
+bindsym F6 $exe homenu
+bindsym F8 $exe newmenu
+# bindsym F8 $exe hugomuno.sh
+# bindsym Shift+F6 $exe bash "/home/bud/.config/rofi/fettan/fettan.sh" "addedit"
+# bindsym F6 $exe /home/bud/.config/rofi/fettan/fettan.sh edit
+# bindsym F7 $exe /home/bud/.config/rofi/fettan/fettan.sh help
+
+## media
+#  =====
+$win+a $exe amixer -q -c 0 set Master playback 1dB+
+# 94 = <, less
+bindcode Mod3+94 $exe amixer -q -c 0 set Master playback 1dB-
+$win+z $exe mpc -q next
+$win+Shift+Control+x $exe mpc -q toggle
+
+## misc
+#  ====
+$win+f       $exe i3mtm
+$win+Shift+f $exe i3mtm -m
+$win+slash   $exe ass sb
+$win+d       $exe ass dt
+$win+s       $exe subact
+$win+q       $exe add-quote
+
+## upload content
+#  ==============
+bindsym --release Mod4+Print $exe i3cast
+
+bindsym --release Print $exe imgur-screenshot.sh -f
+bindsym --release Shift+Print $exe imgur-screenshot.sh -s
+
+$win+c $exe \
+  xclip -o | curl -F c=@- https://ptpb.pw/?u=1 | \
+  xclip -selection 'clipboard' && \
+  notify-send "Paste uploaded"
+
+## wallpapermanagement
+#  ===================
+$win+w        $exe wps -b    # next wallpaper
+$win+Shift+w  $exe wps -s t  # toggle blur
+
+## mousekeys
+#  =========
+bindsym --release button2 kill # mbutton on titlebar kills
+
+## debugging
+#  =========
+$win+shift+t $exe ass st t # dump tree
+$win+shift+d \
+  i3-save-tree --output eDP-1 > /tmp/i3layout-dump.json \
+  && subl /tmp/i3layout-dump.json
+$win+b $exe runscript # run currently open file in sublime
+
+
+## moving the size of the focus
+#  ============================
+$win+$left3              move left  $bigmove
+$win+Shift+$left3        move left  $smallmove
+$win+$right3             move right $bigmove
+$win+Shift+$right3       move right $smallmove
+$win+$down3              move down  $bigmove
+$win+Shift+$down3        move down  $smallmove
+$win+$up3                move up    $bigmove
+$win+Shift+$up3          move up    $smallmove
+ 
+$win$left2               resize shrink width  $bigsize
+$win+Shift$left2         resize shrink width  $smallsize
+$win+$right2             resize grow width    $bigsize
+$win+Shift+$right2       resize grow width    $smallsize
+$win+$down2              resize shrink height $bigsize
+$win+Shift+$down2        resize shrink height $smallsize
+$win+$up2                resize grow height   $bigsize
+$win+Shift+$up2          resize grow height   $smallsize
+
+$win+$left1              focus left
+$win+$right1             focus right
+$win+$down1              focus down
+$win+$up1                focus up
+
+$win+Tab                 focus right
+$win+Shift+Tab           focus left
+
+## workspace stuff
+#  ===============
+$win+F1  workspace 1
+$win+F2  workspace 2
+$win+F3  workspace 3
+$win+F12 workspace back_and_forth
+
+$win+Shift+F1 move container to workspace 1
+$win+Shift+F2 move container to workspace 2
+$win+Shift+F3 move container to workspace 3
+
+## settings
+#  ========
+show_marks no
+floating_modifier $alt
+hide_edge_borders both
+focus_follows_mouse yes
+font pango:$fnt $fntsz
+workspace_auto_back_and_forth no
+
+## appearance
+#  ==========
+for_window [tiling] border pixel 1
+for_window [floating] border normal 1
+
+# widow Colors           border  bg     text    indic
+client.focused           $act    $act   $act    $act
+client.focused_inactive  $ina    $ina   $ina    $ina
+client.unfocused         $ina    $ina   $ina    $ina
+client.urgent            $red    $red   $red    $red
+
+## window rules
+#  ============
+for_window [class="^.*"] floating enable
+
+for_window [class="Vivaldi-stable"]  $fdmtm master
+for_window [class="conky-desktop"]   $fdmtm master
+for_window [instance="sublime_text"] $fdmtm master
+for_window [instance="spacefm"]      $fdmtm sidemain
+for_window [instance="irssi"]        $fdmtm sidemain
+for_window [instance="ncmpcpp"]      $fdmtm sidetop
+for_window [instance="qbittorrent"]  $fdmtm master
+for_window [instance="newsbeuter"]   $fdmtm sidemain
+for_window [instance="htop"]         $fdmtm master
+for_window [instance="ttyclock"]     $fdmtm sidebottom
+# for_window [instance="termside"]     $fdmtm sidebottom
+# for_window [instance="termsmall"]    $fdmtm master
+# for_window [instance="termsub"]      $fdmtm subterm
+
+for_window [instance="termside"]     resize set 300 px 150 px
+for_window [instance="termsmall"]    resize set 300 px 150 px
+for_window [instance="termsub"]      resize set 300 px 150 px
+for_window [window_type="dialog"] floating enable
+for_window [window_type="splash"] floating enable
+for_window [window_type="utility"] floating enable
+
+
+
+for_window [instance="floatterm"] resize set 300 px 150 px
+
+no_focus   [instance="keydisplay"]
+for_window [instance="keydisplay"] sticky enable, border none
+
+## automatic execution
+#  ===================
+# $exe urxvtd -q -o -f
+# $exe wps -b
+# $exe autoexec.sh
+# $exe parcellite > /dev/null 2>&1 &
+# $exe polybar top -c "$HOME/.config/polybar/budbar" -r > /dev/null 2>&1 &
+# $exe igi &
+#$exe i3run -i loader -e urxvt -name loader -e i3init
+
+
+## notes
+#  =====
+# workspace_auto_back_and_forth can cause trouble when tiling is extreme
+# without bindsym to workspaceswitch config doesn't work...
+

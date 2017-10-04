@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Twm on Mr Beaner - Put Coffee in your rice!</title>
+    <link>///home/bud/pub/www/tags/twm/</link>
+    <description>Recent content in Twm on Mr Beaner - Put Coffee in your rice!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Mon, 25 Sep 2017 17:18:30 +0200</lastBuildDate>
+    
+	<atom:link href="///home/bud/pub/www/tags/twm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>me_myself_and_i3</title>
+      <link>///home/bud/pub/www/blog/me_myself_and_i3/</link>
+      <pubDate>Mon, 25 Sep 2017 17:18:30 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/me_myself_and_i3/</guid>
+      <description>Or, how I became a tiler i3 is a dynamic window manager for X. I use i3, and I really like it. There are many similar window managers and I haven&amp;rsquo;t tried many of them. I have run and tinkered with bug.n on windows and tested awesome and dwm on GNU/Linux.
+Maybe I was unlucky and had bad timing with awesome, I was very fresh on GNU/Linux and I think the awesome project was in a transition phase, but I had a hard time grasping all of it.</description>
+    </item>
+    
+  </channel>
+</rss>

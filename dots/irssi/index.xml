@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>irssi on Mr Beaner - Put Coffee in your rice!</title>
+    <link>///home/bud/pub/www/dots/irssi/</link>
+    <description>Recent content in irssi on Mr Beaner - Put Coffee in your rice!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 22 Sep 2017 16:37:44 +0200</lastBuildDate>
+    
+	<atom:link href="///home/bud/pub/www/dots/irssi/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>

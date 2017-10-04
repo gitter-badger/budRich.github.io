@@ -1,0 +1,126 @@
+replaces = { "[]<>=" = "%K$0-%n"; };
+
+#                           text            text            background
+#   ---------------------------------------------------------------------
+#   %k      %K      %0      black           dark grey       black
+#   %r      %R      %1      red             bold red        red
+#   %g      %G      %2      green           bold green      green
+#   %y      %Y      %3      yellow          bold yellow     yellow
+#   %b      %B      %4      blue            bold blue       blue
+#   %m      %M      %5      magenta         bold magenta    magenta
+#   %p      %P              magenta (think: purple)
+#   %c      %C      %6      cyan            bold cyan       cyan
+#   %w      %W      %7      white           bold white      white
+#   %n      %N              Changes the color to "default color", removing
+#                           all other coloring and formatting. %N is always
+#                           the terminal's default color. %n is usually too,
+#                           except in themes it changes to "previous color",
+#                           ie. hello = "%Rhello%n" and "%G{hello} world"
+#                           would print hello in red, and %n would turn back
+#                           into %G making world green.
+#   %F                      Blinking on/off (think: flash)
+#   %U                      Underline on/off
+#   %8                      Reverse on/off
+#   %9      %_              Bold on/off
+#   %I                      Italic on/off
+#   %:                      Insert newline
+#   %|                      Marks the indentation position
+#   %#                      Monospace font on/off (useful with lists and GUI)
+#   %%                      A single %
+#   %XAB            %xAB    Color from extended plane (A=1-7, B=0-Z)
+#   %ZAABBCC    %zAABBCC    HTML color (in hex notation)
+
+abstracts = {
+  prompt = "%N$*> ";
+  msgnick = "%:%9$nickcolor$1-%9%:%|%n";
+
+  # Tabbar background
+  sb_background = "%N";
+
+  sb_prompt_bg = "%0";
+  sb_info_bg = "%8";
+  sbstart = "";
+  sbend = " ";
+  sb = "%y[%n$*%y] ";
+  sbmode = "%y(%y+%n$*%y)";
+  sbaway = "%y] [%RA";
+  sbservertag = ":%y$0%n";
+  sb_act_sep = "%c$*";
+  sb_act_text = "%c$*";
+  sb_act_msg = "%y$*";
+  sb_act_hilight = "%Y$*";
+  sb_act_hilight_color = "$0$1-%n";
+
+  line_start = "%c(%y*%c) ";
+  timestamp = "%c$0-%n";
+  hilight = "%y$0-%n";
+  error = "%R$0-%n";
+  channel = "%c$0-%n";
+  nick = "%y$0-%n";
+  nickhost = "[$0-]";
+  server = "%y$0-%n";
+  comment = "[%y$0-%n]";
+  reason = "{comment $0-}";
+  mode = "{comment %R$0-}%n";
+  channick_hilight = "%g$0-";
+  chanhost_hilight = "{nickhost %c$0-}%y";
+  channick = "%c$0-%c";
+  chanhost = "{nickhost %c$0-}%c";
+  channelhilight = "%c$0-%n";
+  ban = "%R$0-%n";
+  ownmsgnick = "{msgnick %c$0 $1-}";
+  ownnick = "%c$0-%n";
+  pubmsgnick = "{msgnick %c$0 $1-}";
+  pubnick = "%y$0-%n";
+  pubmsgmenick = "{msgnick %c$0%Y $1-}%n";
+  menick = "%Y$0-";
+  pubmsghinick = "{msgnick $1 $0$2-}";
+  msgchannel = "%c:%y$0-%n";
+  privmsg = "[%R$0%c(%r$1-%c)%n] ";
+  ownprivmsg = "[%r$0%c(%R$1-%c)%n] ";
+  ownprivmsgnick = "{msgnick  $0-}";
+  ownprivnick = "%c$0-%n";
+  privmsgnick = "{msgnick  %y$0-%n}";
+  action_core = "%r(%R*%r) %R$0-%r";
+  action = "{action_core $0-} ";
+  ownaction = "{action $0-}";
+  ownaction_target = "{action_core $0}%c:%y$1%n ";
+  pvtaction = "%W (*) $0-%n ";
+  pvtaction_query = "{action $0-}";
+  pubaction = "{action $0-}";
+  ownnotice = "%c-%y$0%c:%y$1-%c-%n ";
+  notice = "%c-%y$0-%c-%n ";
+  pubnotice_channel = "%c:%y$0-";
+  pvtnotice_host = "%c(%y$0-%c)";
+  servernotice = "%c-%y$0-%c-%n ";
+  ownctcp = "%c-%y$0%c:%y$1-%c-%n ";
+  ctcp = "%g$0-%n";
+  wallop = "%W$0-%n: ";
+  wallop_nick = "%n$0-";
+  wallop_action = "%W * $0-%n ";
+  netsplit = "%R$0-%n";
+  netjoin = "%Y$0-%n";
+  names_nick = "%c$0%y$1-%c:%n";
+  names_users = "[%c$0-%n]";
+  names_channel = "%y$0-%n";
+  dcc = "%c$0-%c";
+  dccfile = "%c$0-%n";
+  dccownmsg = "[%r$0%c($1-%c)%n] ";
+  dccownnick = "%R$0-%n";
+  dccownaction = "{action $0-}";
+  dccownaction_target = "{action_core $0}%c:%c$1%n ";
+  dccmsg = "[%G$1-%c(%g$0%K)%n] ";
+  dccquerynick = "%G$0-%n";
+  dccaction = "{action $0-}";
+
+};
+
+
+formats = {
+  "Irssi::Script::adv_windowlist" = { awl_display_header = "|"; };
+  "fe-common/core" = {
+    pubmsg = "{pubmsgnick $2 {pubnick $nickcolor$0}}$1";
+  };
+};
+
+# vim:ft=config

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Guide on Mr Beaner - Put Coffee in your rice!</title>
+    <link>///home/bud/pub/www/tags/guide/</link>
+    <description>Recent content in Guide on Mr Beaner - Put Coffee in your rice!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 01 Oct 2017 19:13:40 +0200</lastBuildDate>
+    
+	<atom:link href="///home/bud/pub/www/tags/guide/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>fresh_start</title>
+      <link>///home/bud/pub/www/blog/fresh_start/</link>
+      <pubDate>Sun, 01 Oct 2017 19:13:40 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/fresh_start/</guid>
+      <description>First thins to do on a fresh install These are the steps I take to setup my work environment on a fresh install of Peppermint OS 8. Most of the steps are valid on other GNU/Linux distributions, but I don&amp;rsquo;t recommend anyone to blindly follow and install everything.
+Before doing anything else i start syncing Dropbox. I start with this step because it can take up to 45 minutes, so while Dropbox is syncing there is time to install and setup other programs.</description>
+    </item>
+    
+    <item>
+      <title>install_i3</title>
+      <link>///home/bud/pub/www/blog/install_i3/</link>
+      <pubDate>Mon, 25 Sep 2017 17:17:39 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/install_i3/</guid>
+      <description>You can probably install i3 directly from your distributions package manager. But If you want to be sure to get the latest version or a fork you need to download and compile the source code.
+i3-gaps i3-gaps is a fork of i3 developed by Airblader who happens to be one of the main developers on vanilla/normal i3. i3-gaps has some features that is not 100% in sync with the design philosophy of normal i3, that&amp;rsquo;s why it is a fork.</description>
+    </item>
+    
+    <item>
+      <title>font_rendering</title>
+      <link>///home/bud/pub/www/blog/font_rendering/</link>
+      <pubDate>Mon, 25 Sep 2017 17:15:34 +0200</pubDate>
+      
+      <guid>///home/bud/pub/www/blog/font_rendering/</guid>
+      <description>It is easy to get used to bad font rendering. But there are some simple steps one can take to get great looking fonts on *GNU/*Linux.
+Below is a summary of an article on binarytides, with some spice.
+download the following fonts from
+http://www.google.com/fonts/
+ Droid Sans Droid Sans Mono Droid Serif Noto Sans Noto Serif Open Sans  Unzip &amp;lsquo;em and place them in ~/.fonts Download and place this .</description>
+    </item>
+    
+  </channel>
+</rss>

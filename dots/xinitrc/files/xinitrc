@@ -1,0 +1,25 @@
+#!/bin/sh
+# .xinitrc - curated by budRich
+
+xrdb -merge $HOME/.Xresources
+xrandr --output eDP-1 --auto --left-of HDMI-1 --primary &
+setxkbmap -layout seba -option ctrl:nocaps -option lv3:ralt_switch
+hsetroot -tile /home/bud/etc/bitmap-walls/patterns-png/line_diag3_2.png \
+  -tint "$(xrdb -query | awk '/\*background/ {print $2}')"
+urxvtd -q -o -f
+dropbox start &
+
+igi &
+
+killall polybar
+killall qbittorrent
+killall mpd
+
+compton -b > /dev/null 2>&1
+sxhkd > /dev/null 2>&1 &
+
+xbanish > /dev/null 2>&1 &
+mpd > /dev/null 2>&1 &
+
+exec i3
+

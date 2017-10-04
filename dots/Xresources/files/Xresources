@@ -1,0 +1,23 @@
+! xrdb -merge $HOME/.Xresources
+! printf '\e]710;%s\007' "xft:Fixedsys Excelsior 3.01\-L2 Mono:style=Regular"
+! https://www.reddit.com/r/unixporn/wiki/organizing_xresources
+
+#define fnt1 Terminus
+#define fnt2 Inconsolata
+#define fnt3 Fixedsys Excelsior 3.01\-L2 Mono:style=Regular
+#define brws vivaldi
+#define fsz1 12
+#define fsz2 18
+#define padd 5
+
+! #include </home/bud/.xres/colors/gruvbox>
+! #include </home/bud/.xres/colors/HatOfGod>
+#include </home/bud/.xres/colors/solarized-dark>
+
+#include </home/bud/.xres/color>
+#include </home/bud/.xres/xft>
+#include </home/bud/.xres/urxvt>
+#include </home/bud/.xres/i3wm>
+! #include </home/bud/.xres/rofi>
+
+

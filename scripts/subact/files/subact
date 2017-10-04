@@ -1,0 +1,110 @@
+#!/bin/bash
+
+# subact - perform action on currently open file in sublime
+# if file is argument dont catch title from sublime
+# 
+# dependencies:
+# -------------
+# i3get
+# toilet
+# lolcat
+# ansi2html
+
+
+REM_ROOT="${HOME}/Dropbox/nixlog"
+FLD_SCRIPTS="scripts"
+FLD_DOTS="dots"
+LOC_SCIRPT_SRC="${HOME}/src"
+
+newbanner(){
+  FONT="3d.flf" # figlet font to use
+  # FONT=rustofat.tlf
+  LOLCAT_OPTIONS='-p 10'
+  TOILET_OPTIONS=(-w 170 -f "${FONT}")
+
+  echo '<pre class="lolban">' > ${2}
+
+  echo -e "${1}" | toilet ${TOILET_OPTIONS[@]} \
+                 | lolcat -f ${LOLCAT_OPTIONS} \
+                 | ansi2html.sh --body-only >> ${2}
+
+  echo '</pre>' >> ${2}                 
+}
+
+newpost(){
+  cd ${REM_ROOT} 
+  # create _index.md in all subfolders to define
+  # sections properly.
+  trgtmp=${trg_url%'/'*}
+  echo "${trg_url}"
+  while [[ -n ${trgtmp} ]]; do
+    hugo new "${trgtmp}/_index.md"
+    sed -i "/title/c\title: \"${trgtmp##*'/'}\"" "content/${trgtmp}/_index.md"
+    sed -i "/draft/c\draft: false" "content/${trgtmp}/_index.md"
+    trgtmp=${trgtmp%'/'*}
+  done
+
+  hugo new ${trg_url}.md
+  # https://stackoverflow.com/a/11245501
+  sed -i "/fspath/c\fspath: \"${st}\"" content/${trg_url}.md
+  mkdir -p "${trg_lbd}"
+  newbanner "${fo}" "${trg_lbf}"
+}
+
+if [[ ! -f "${1/'~'/$HOME}" ]]; then
+  st=$(i3get -i sublime_text -r t)
+  st=${st%' -'*}
+  [[ $st =~ '(' ]] && st=${st%' ('*}
+  st=${st:1}         # fullpath short
+else
+  st="${1}"
+fi
+
+fp=${st/'~'/$HOME} # fullpath extended
+fl=${fp##*'/'}     # filename
+fc=${fp//'.'/}     # path without dots
+# remove extension or leading dot
+[[ ${fl:0:1} = '.' ]] && fo=${fl:1} || fo=${fl%.*}
+fd=${fc%'/'*}      # dir
+
+[[ $fd = $HOME ]] && fd+='/'
+
+if [[ $fd = $LOC_SCIRPT_SRC ]]; then 
+  trg=${FLD_SCRIPTS}
+  trg_mdd="${REM_ROOT}/content/${trg}"
+  trg_mdf="${trg_mdd}/${fo}.md"
+  trg_lbd="${REM_ROOT}/static/${trg}/${fo}"
+  trg_lbf="${trg_lbd}/banner.html"
+  trg_fld="${trg_lbd}/files"
+  trg_flf="${trg_fld}/${fo}"
+else
+  trg=${FLD_DOTS}
+  trg_mdd="${REM_ROOT}/content/${trg}/${fd/${HOME}\//}"
+  trg_mdf="${trg_mdd}/${fo}.md"
+  trg_lbd="${REM_ROOT}/static/${trg}/${fd/${HOME}\//}/${fo}"
+  trg_lbf="${trg_lbd}/banner.html"
+  trg_fld="${trg_lbd}/files"
+  trg_flf="${trg_fld}/${fo}"
+fi
+
+trg_url="${trg_mdd/${REM_ROOT}\/content/}${fo}"
+# backup link folder
+trg_dbd="${HOME}/Dropbox${trg_mdd/${REM_ROOT}\/content/}"
+
+
+
+# create files and links if they don't exist
+[[ ! -f "${trg_mdf}" ]] && newpost
+[[ ! -f "${trg_flf}" ]] && \
+  mkdir -p "${trg_fld}"
+  ln $fp "${trg_flf}"  
+
+# create links for file and md on Dropbox
+mkdir -p ${trg_dbd}
+ln $fp ${trg_dbd}/${fo}
+ln ${trg_mdf} ${trg_dbd}/${fo}.md
+ln ${trg_mdd}/_index.md ${trg_dbd}README.md
+
+# subl "${trg_mdf}"
+# vivaldi "127.0.0.1:1313/${trg_url}/"
+

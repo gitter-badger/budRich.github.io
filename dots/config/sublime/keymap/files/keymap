@@ -1,0 +1,4 @@
+[
+  { "keys": ["f2"], "command": "file_rename" },
+  { "keys": ["ctrl+f12"], "command": "select_color_scheme" }
+]

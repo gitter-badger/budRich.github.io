@@ -1,0 +1,14 @@
+! HatOfGod
+! budRich
+
+#define bg    #111313
+#define fg    #E6DB74
+#define blk   #151515
+#define bblk  #3B3A32
+#define red   #F92672
+#define grn   #A6E22E
+#define ylw   #FD971F
+#define blu   #66D9EF
+#define mag   #F09EC0
+#define cyn   #C8AC00
+#define wht   #FFE792
