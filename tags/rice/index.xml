@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rice on Mr Beaner - Put Coffee in your rice!</title>
-    <link>///home/bud/pub/www/tags/rice/</link>
+    <link>https://budrich.github.io/tags/rice/</link>
     <description>Recent content in Rice on Mr Beaner - Put Coffee in your rice!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Mon, 25 Sep 2017 17:17:39 +0200</lastBuildDate>
     
-	<atom:link href="///home/bud/pub/www/tags/rice/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://budrich.github.io/tags/rice/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>install_i3</title>
-      <link>///home/bud/pub/www/blog/install_i3/</link>
+      <link>https://budrich.github.io/blog/install_i3/</link>
       <pubDate>Mon, 25 Sep 2017 17:17:39 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/blog/install_i3/</guid>
+      <guid>https://budrich.github.io/blog/install_i3/</guid>
       <description>You can probably install i3 directly from your distributions package manager. But If you want to be sure to get the latest version or a fork you need to download and compile the source code.
 i3-gaps i3-gaps is a fork of i3 developed by Airblader who happens to be one of the main developers on vanilla/normal i3. i3-gaps has some features that is not 100% in sync with the design philosophy of normal i3, that&amp;rsquo;s why it is a fork.</description>
     </item>
     
     <item>
       <title>dmenu</title>
-      <link>///home/bud/pub/www/blog/dmenu/</link>
+      <link>https://budrich.github.io/blog/dmenu/</link>
       <pubDate>Mon, 25 Sep 2017 17:14:40 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/blog/dmenu/</guid>
+      <guid>https://budrich.github.io/blog/dmenu/</guid>
       <description>dmenu is one of my favorite tools. It is a very simple program that displays a menu. It is often used as a lightweight launcher. But I&amp;rsquo;ve found that it is also the most efficient way to send user input to shell scripts, without having the user using a clumsy terminal command.
 It is maintained by suckless, a group that have many interesting tools, programs and ideas.
 I often use dmenu with my own scripts, and will describe how, in future articles.</description>
@@ -34,10 +34,10 @@ I often use dmenu with my own scripts, and will describe how, in future articles
     
     <item>
       <title>compton_setup</title>
-      <link>///home/bud/pub/www/blog/compton_setup/</link>
+      <link>https://budrich.github.io/blog/compton_setup/</link>
       <pubDate>Mon, 25 Sep 2017 17:14:06 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/blog/compton_setup/</guid>
+      <guid>https://budrich.github.io/blog/compton_setup/</guid>
       <description>compton is a lightweight compositor for X that works really well with i3. A compositor adds some eye-candy like transparency and drop-shadows to the windows. But it also do some anti screen tearing magic and such. The compton setup can however be a bit tricky and it all depends on your own preferences and hardware.
 Below are some snippets from my .compton.conf that is more i3 then hardware related that you might find useful:</description>
     </item>

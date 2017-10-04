@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bash on Mr Beaner - Put Coffee in your rice!</title>
-    <link>///home/bud/pub/www/tags/bash/</link>
+    <link>https://budrich.github.io/tags/bash/</link>
     <description>Recent content in Bash on Mr Beaner - Put Coffee in your rice!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Fri, 22 Sep 2017 17:21:29 +0200</lastBuildDate>
     
-	<atom:link href="///home/bud/pub/www/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://budrich.github.io/tags/bash/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>bashrc</title>
-      <link>///home/bud/pub/www/dots/bashrc/</link>
+      <link>https://budrich.github.io/dots/bashrc/</link>
       <pubDate>Fri, 22 Sep 2017 17:21:29 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/dots/bashrc/</guid>
+      <guid>https://budrich.github.io/dots/bashrc/</guid>
       <description>Only thing going on here is a loop that sources all files in ~/.bash/ . I just upgraded Mint and it was kind enough to overwrite my .bashrc, that made me decide to have it as minimal as possible so I can easily restore it if something similar happens.
 I don&amp;rsquo;t care so much about distros and I have not had any problems with Mint till this happened. But it is so poor design to overwrite .</description>
     </item>

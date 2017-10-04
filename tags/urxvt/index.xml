@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Urxvt on Mr Beaner - Put Coffee in your rice!</title>
-    <link>///home/bud/pub/www/tags/urxvt/</link>
+    <link>https://budrich.github.io/tags/urxvt/</link>
     <description>Recent content in Urxvt on Mr Beaner - Put Coffee in your rice!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Mon, 25 Sep 2017 17:15:34 +0200</lastBuildDate>
     
-	<atom:link href="///home/bud/pub/www/tags/urxvt/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://budrich.github.io/tags/urxvt/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>font_rendering</title>
-      <link>///home/bud/pub/www/blog/font_rendering/</link>
+      <link>https://budrich.github.io/blog/font_rendering/</link>
       <pubDate>Mon, 25 Sep 2017 17:15:34 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/blog/font_rendering/</guid>
+      <guid>https://budrich.github.io/blog/font_rendering/</guid>
       <description>It is easy to get used to bad font rendering. But there are some simple steps one can take to get great looking fonts on *GNU/*Linux.
 Below is a summary of an article on binarytides, with some spice.
 download the following fonts from

@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>dots on Mr Beaner - Put Coffee in your rice!</title>
-    <link>///home/bud/pub/www/dots/</link>
+    <link>https://budrich.github.io/dots/</link>
     <description>Recent content in dots on Mr Beaner - Put Coffee in your rice!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Fri, 22 Sep 2017 16:36:52 +0200</lastBuildDate>
     
-	<atom:link href="///home/bud/pub/www/dots/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://budrich.github.io/dots/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>bashrc</title>
-      <link>///home/bud/pub/www/dots/bashrc/</link>
+      <link>https://budrich.github.io/dots/bashrc/</link>
       <pubDate>Fri, 22 Sep 2017 17:21:29 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/dots/bashrc/</guid>
+      <guid>https://budrich.github.io/dots/bashrc/</guid>
       <description>Only thing going on here is a loop that sources all files in ~/.bash/ . I just upgraded Mint and it was kind enough to overwrite my .bashrc, that made me decide to have it as minimal as possible so I can easily restore it if something similar happens.
 I don&amp;rsquo;t care so much about distros and I have not had any problems with Mint till this happened. But it is so poor design to overwrite .</description>
     </item>
     
     <item>
       <title>xinitrc</title>
-      <link>///home/bud/pub/www/dots/xinitrc/</link>
+      <link>https://budrich.github.io/dots/xinitrc/</link>
       <pubDate>Fri, 22 Sep 2017 17:17:15 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/dots/xinitrc/</guid>
+      <guid>https://budrich.github.io/dots/xinitrc/</guid>
       <description>This is part of my anti-DM suite. The stuff I want to happen just before i3 loads up, goes here. Having urxvt in daemon mode is really nice. And I use xsetroot and a solid &amp;ldquo;greyed&amp;rdquo; color from Xresources instead of a wallpaper. I have written a little piece about the strange keyboard layout Seba. There is also a short text on why i use sxhkd.</description>
     </item>
     

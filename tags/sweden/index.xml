@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sweden on Mr Beaner - Put Coffee in your rice!</title>
-    <link>///home/bud/pub/www/tags/sweden/</link>
+    <link>https://budrich.github.io/tags/sweden/</link>
     <description>Recent content in Sweden on Mr Beaner - Put Coffee in your rice!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Mon, 25 Sep 2017 17:19:12 +0200</lastBuildDate>
     
-	<atom:link href="///home/bud/pub/www/tags/sweden/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://budrich.github.io/tags/sweden/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>swedish_keyboards</title>
-      <link>///home/bud/pub/www/blog/swedish_keyboards/</link>
+      <link>https://budrich.github.io/blog/swedish_keyboards/</link>
       <pubDate>Mon, 25 Sep 2017 17:19:12 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/blog/swedish_keyboards/</guid>
+      <guid>https://budrich.github.io/blog/swedish_keyboards/</guid>
       <description>when I was working as a technical support agent I received several calls from angry men who couldn&amp;rsquo;t find the @ symbol on the keyboard. When I explained that they had to hold Alt-Gr and pressing 2 at the same time, they exploded with anger and told me to tell the technicians to make a new keyboard layout! I explained it&amp;rsquo;s an old standard and agreed it was stupid, but that it would probably never change.</description>
     </item>
     

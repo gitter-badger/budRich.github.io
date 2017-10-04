@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Installation on Mr Beaner - Put Coffee in your rice!</title>
-    <link>///home/bud/pub/www/tags/installation/</link>
+    <link>https://budrich.github.io/tags/installation/</link>
     <description>Recent content in Installation on Mr Beaner - Put Coffee in your rice!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Sun, 01 Oct 2017 19:13:40 +0200</lastBuildDate>
     
-	<atom:link href="///home/bud/pub/www/tags/installation/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://budrich.github.io/tags/installation/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>fresh_start</title>
-      <link>///home/bud/pub/www/blog/fresh_start/</link>
+      <link>https://budrich.github.io/blog/fresh_start/</link>
       <pubDate>Sun, 01 Oct 2017 19:13:40 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/blog/fresh_start/</guid>
+      <guid>https://budrich.github.io/blog/fresh_start/</guid>
       <description>First thins to do on a fresh install These are the steps I take to setup my work environment on a fresh install of Peppermint OS 8. Most of the steps are valid on other GNU/Linux distributions, but I don&amp;rsquo;t recommend anyone to blindly follow and install everything.
 Before doing anything else i start syncing Dropbox. I start with this step because it can take up to 45 minutes, so while Dropbox is syncing there is time to install and setup other programs.</description>
     </item>

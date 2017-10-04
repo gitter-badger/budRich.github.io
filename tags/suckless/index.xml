@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Suckless on Mr Beaner - Put Coffee in your rice!</title>
-    <link>///home/bud/pub/www/tags/suckless/</link>
+    <link>https://budrich.github.io/tags/suckless/</link>
     <description>Recent content in Suckless on Mr Beaner - Put Coffee in your rice!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Mon, 25 Sep 2017 17:14:40 +0200</lastBuildDate>
     
-	<atom:link href="///home/bud/pub/www/tags/suckless/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://budrich.github.io/tags/suckless/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>dmenu</title>
-      <link>///home/bud/pub/www/blog/dmenu/</link>
+      <link>https://budrich.github.io/blog/dmenu/</link>
       <pubDate>Mon, 25 Sep 2017 17:14:40 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/blog/dmenu/</guid>
+      <guid>https://budrich.github.io/blog/dmenu/</guid>
       <description>dmenu is one of my favorite tools. It is a very simple program that displays a menu. It is often used as a lightweight launcher. But I&amp;rsquo;ve found that it is also the most efficient way to send user input to shell scripts, without having the user using a clumsy terminal command.
 It is maintained by suckless, a group that have many interesting tools, programs and ideas.
 I often use dmenu with my own scripts, and will describe how, in future articles.</description>

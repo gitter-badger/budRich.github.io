@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sxhkd on Mr Beaner - Put Coffee in your rice!</title>
-    <link>///home/bud/pub/www/tags/sxhkd/</link>
+    <link>https://budrich.github.io/tags/sxhkd/</link>
     <description>Recent content in Sxhkd on Mr Beaner - Put Coffee in your rice!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Mon, 25 Sep 2017 17:20:01 +0200</lastBuildDate>
     
-	<atom:link href="///home/bud/pub/www/tags/sxhkd/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://budrich.github.io/tags/sxhkd/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>mouseback</title>
-      <link>///home/bud/pub/www/blog/mouseback/</link>
+      <link>https://budrich.github.io/blog/mouseback/</link>
       <pubDate>Mon, 25 Sep 2017 17:20:01 +0200</pubDate>
       
-      <guid>///home/bud/pub/www/blog/mouseback/</guid>
+      <guid>https://budrich.github.io/blog/mouseback/</guid>
       <description>A while ago I got irritated how messy my i3 config file looked, and I researched alternative hotkey managers. I tried sxhkd and it is a fine piece of code. I got a much cleaner setup of the hotkeys and I could do stuff that i wasn&amp;rsquo;t able to do with i3.
 But a couple of days ago, i realized that my i3 config could be just as clean as sxhkd by using variables.</description>
     </item>

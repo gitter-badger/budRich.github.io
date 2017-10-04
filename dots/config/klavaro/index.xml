@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>klavaro on Mr Beaner - Put Coffee in your rice!</title>
-    <link>///home/bud/pub/www/dots/config/klavaro/</link>
+    <link>https://budrich.github.io/dots/config/klavaro/</link>
     <description>Recent content in klavaro on Mr Beaner - Put Coffee in your rice!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Fri, 22 Sep 2017 16:37:46 +0200</lastBuildDate>
     
-	<atom:link href="///home/bud/pub/www/dots/config/klavaro/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://budrich.github.io/dots/config/klavaro/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
